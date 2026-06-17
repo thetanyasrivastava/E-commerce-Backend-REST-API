@@ -1,173 +1,193 @@
-🛒 E-Commerce REST API
-📌 Overview
+# 🛒 E-Commerce Backend REST API
 
-This project is a RESTful E-Commerce Backend API built using Node.js, Express, and PostgreSQL.
+> A secure and scalable backend system for an e-commerce platform built with **Node.js, Express.js, PostgreSQL, JWT, and bcrypt**.
 
-It provides secure authentication, role-based access control, product management, cart functionality, and order processing. The system follows clean architecture principles and REST API best practices.
+![Node.js](https://img.shields.io/badge/Node.js-Backend-green)
+![Express](https://img.shields.io/badge/Express.js-Framework-black)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![JWT](https://img.shields.io/badge/JWT-Authentication-orange)
 
-The goal of this project was to design and implement a secure, scalable, and maintainable backend system.
+---
 
-🛠️ Tech Stack
+## 🚀 Features
 
-Node.js
+### 🔐 Authentication & Authorization
 
-Express.js
+* User Registration & Login
+* Password Hashing with bcrypt
+* JWT Authentication
+* Protected Routes
+* Role-Based Access Control (Admin/User)
 
-PostgreSQL
+### 📦 Product Management
 
-JWT (JSON Web Token)
+* Create Products (Admin)
+* Update Products (Admin)
+* Delete Products (Admin)
+* View Products
+* Product Inventory Tracking
 
-bcrypt
+### 🛒 Cart Management
 
-dotenv
+* Add Products to Cart
+* Update Quantity
+* Remove Products
+* Calculate Cart Total
 
-🔐 Authentication & Authorization
+### 📑 Order Processing
 
-User Registration & Login
+* Create Orders
+* Stock Validation
+* Automatic Inventory Updates
+* Order History Tracking
 
-Password hashing using bcrypt
+---
 
-JWT-based authentication
+## 🏗️ Architecture
 
-Protected route middleware
+```text
+Client
+   │
+   ▼
+Express API
+   │
+   ├── Authentication Layer
+   ├── Product Module
+   ├── Cart Module
+   ├── Order Module
+   │
+   ▼
+PostgreSQL Database
+```
 
-Role-Based Access Control (Admin / User)
+---
 
-✨ Core Features
-👤 User Management
+## 🛠️ Tech Stack
 
-Register new user
+| Category       | Technologies        |
+| -------------- | ------------------- |
+| Backend        | Node.js, Express.js |
+| Database       | PostgreSQL          |
+| Authentication | JWT, bcrypt         |
+| Environment    | dotenv              |
+| API Testing    | Postman             |
 
-Login and receive JWT token
+---
 
-Secure password storage
+## 📂 Project Structure
 
-Role-based permissions
-
-📦 Product Management
-
-Create product (Admin only)
-
-Update product (Admin only)
-
-Delete product (Admin only)
-
-Get all products
-
-Get single product
-
-Stock tracking and validation
-
-🛒 Cart System
-
-Add product to cart
-
-Remove product from cart
-
-Update product quantity
-
-Calculate total cart value
-
-📑 Order System
-
-Create order from cart
-
-Prevent ordering out-of-stock products
-
-Automatically reduce stock after successful order
-
-View user order history
-
-🗂️ Project Structure
+```text
 src/
- ├── controllers/
- ├── models/
- ├── routes/
- ├── middlewares/
- ├── config/
- └── server.js
+├── controllers/
+├── routes/
+├── middlewares/
+├── services/
+├── config/
+├── utils/
+└── server.js
+```
 
-The project is structured in a modular way to ensure scalability, readability, and maintainability.
+---
 
-📡 API Endpoints
-🔑 Auth
+## 📡 API Endpoints
 
-POST /api/auth/register
+### Authentication
 
-POST /api/auth/login
+| Method | Endpoint           |
+| ------ | ------------------ |
+| POST   | /api/auth/register |
+| POST   | /api/auth/login    |
 
-📦 Products
+### Products
 
-GET /api/products
+| Method | Endpoint          |
+| ------ | ----------------- |
+| GET    | /api/products     |
+| GET    | /api/products/:id |
+| POST   | /api/products     |
+| PUT    | /api/products/:id |
+| DELETE | /api/products/:id |
 
-GET /api/products/:id
+### Cart
 
-POST /api/products (Admin only)
+| Method | Endpoint             |
+| ------ | -------------------- |
+| POST   | /api/cart            |
+| GET    | /api/cart            |
+| PUT    | /api/cart/:productId |
+| DELETE | /api/cart/:productId |
 
-PUT /api/products/:id (Admin only)
+### Orders
 
-DELETE /api/products/:id (Admin only)
+| Method | Endpoint    |
+| ------ | ----------- |
+| POST   | /api/orders |
+| GET    | /api/orders |
 
-🛒 Cart
+---
 
-POST /api/cart
+## ⚙️ Getting Started
 
-GET /api/cart
+### Clone Repository
 
-DELETE /api/cart/:productId
-
-📑 Orders
-
-POST /api/orders
-
-GET /api/orders
-
-⚙️ Installation & Setup
-1️⃣ Clone the Repository
-git clone https://github.com/diargllareva/E-commerce-Backend-REST-API.git
+```bash
+git clone https://github.com/thetanyasrivastava/E-commerce-Backend-REST-API.git
 cd E-commerce-Backend-REST-API
-2️⃣ Install Dependencies
+```
+
+### Install Dependencies
+
+```bash
 npm install
-3️⃣ Create .env File
+```
 
-Create a .env file in the root directory:
+### Configure Environment Variables
 
+Create a `.env` file:
+
+```env
 PORT=5000
-POSTGRES_URI=your_postgres_connection_string
+POSTGRES_URI=your_connection_string
 JWT_SECRET=your_secret_key
-4️⃣ Run the Server
+```
+
+### Run Server
+
+```bash
 npm run dev
+```
 
-Server runs at:
+---
 
-http://localhost:5000
-🧠 Key Learnings
+## 🎯 Key Highlights
 
-Designing RESTful APIs
+✅ Secure JWT Authentication
 
-Implementing secure authentication systems
+✅ Role-Based Authorization
 
-Handling role-based authorization
+✅ PostgreSQL Integration
 
-Managing business logic (cart → order → stock updates)
+✅ Inventory Management
 
-Structuring scalable backend applications
+✅ Modular Backend Architecture
 
-Working with PostgreSQL
+✅ RESTful API Design
 
-🚀 Future Improvements
+---
 
-Implement refresh token authentication
+## 🚀 Future Improvements
 
-Add API documentation using Swagger
+* Refresh Token Authentication
+* Swagger Documentation
+* Docker Support
+* Jest Testing
+* Payment Gateway Integration
+* CI/CD Pipeline
 
-Add unit and integration tests (Jest)
+---
 
-Integrate payment gateway
+## 👩‍💻 Author
 
-Dockerize the application
+**Tanya Srivastava**
 
-👩‍💻 Author
-
-Tanya Srivastava
-Backend Developer – Node.js | Express | PostgreSQL
+Backend Developer | Node.js | Express.js | PostgreSQL
