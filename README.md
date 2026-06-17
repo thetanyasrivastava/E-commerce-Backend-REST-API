@@ -1,3 +1,4 @@
+
 # 🛒 E-Commerce Backend REST API
 
 > A secure and scalable backend system for an e-commerce platform built with **Node.js, Express.js, PostgreSQL, JWT, and bcrypt**.
