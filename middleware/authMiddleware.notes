@@ -1,0 +1,166 @@
+Line 1
+const jwt = require("jsonwebtoken");
+
+
+This imports the JWT library so we can:
+
+verify tokens
+
+check if they are valid
+
+Without this, the server cannot read or trust tokens.
+
+Line 4
+const authMiddleware = (req, res, next) => {
+
+
+This is a middleware function.
+
+It always receives:
+
+req → the incoming request
+
+res → response object
+
+next → function that lets the request continue
+
+💡 If next() is NOT called → request stops here.
+
+Step 1️⃣ Read the Authorization header
+const authHeader = req.headers.authorization;
+
+
+Here we are checking:
+
+Did the client send an Authorization header?
+
+This is where the token should be.
+
+Step 2️⃣ Check if the header is valid
+if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  return res.status(401).json({ error: "No token provided" });
+}
+
+
+This means:
+
+If there is no header, OR
+
+If it doesn’t start with "Bearer "
+
+➡️ Then the user is not authenticated
+
+We stop the request immediately.
+
+401 = Unauthorized.
+
+Step 3️⃣ Extract the token
+const token = authHeader.split(" ")[1];
+
+
+Example header:
+
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+
+We split by space:
+
+index 0 → "Bearer"
+
+index 1 → the actual token
+
+So now:
+
+token = the JWT string
+
+Step 4️⃣ Verify the token
+const decoded = jwt.verify(token, "supersecretkey");
+
+
+This is the most important line.
+
+Here the server checks:
+
+Was this token created by me?
+
+Has it been modified?
+
+Has it expired?
+
+If any of these fail → an error is thrown.
+
+If successful:
+
+decoded contains the data inside the token
+(user id, role, etc.)
+
+Step 5️⃣ Attach user info to request
+req.user = decoded;
+
+
+This is very important.
+
+Now every controller after this middleware can access:
+
+req.user.id
+
+req.user.role
+
+This is how:
+
+carts know the user
+
+orders belong to users
+
+admin checks work
+
+Step 6️⃣ Allow request to continue
+next();
+
+
+This tells Express:
+
+“Authentication passed. Go to the next middleware or controller.”
+
+Without this line:
+
+request would hang forever
+
+Step 7️⃣ Handle invalid token
+catch (error) {
+  return res.status(401).json({ error: "Invalid or expired token" });
+}
+
+
+If token is:
+
+fake
+
+expired
+
+modified
+
+➡️ Request is blocked
+➡️ Controller is never reached
+
+Final line
+module.exports = authMiddleware;
+
+
+This allows you to:
+
+import this middleware
+
+use it in routes
+
+🧩 How to think about this (important)
+
+authMiddleware is a security guard
+
+No token? ❌
+
+Bad token? ❌
+
+Valid token? ✅ → enter
+
+Your controllers no longer worry about authentication.
